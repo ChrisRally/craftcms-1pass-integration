@@ -37,9 +37,47 @@ class OnePassController extends BaseController
 	}
 
 
+	/**
+	 * Retrieves a server header attribute
+	 *
+	 * @param $header
+	 * @return string
+	 */
+	public function getRequestHeader($header)
+	{
+		return array_key_exists($header, $_SERVER) ? $_SERVER[$header] : '';
+	}
+
+
+	/**
+	 * Check for 1Pass authentication headers when feed is requested
+	 *
+	 * @return bool
+	 */
+	public function checkAuthenticationHeader()
+	{
+		// Get feed request header
+		// When 1Pass requests the feed, it will attach X-ONEPASS-TIMESTAMP and X-ONEPASS-SIGNATURE headers.
+		// Pass the current URL and the timestamp into the buildHash method of 1pass-client and compare with X-ONEPASS-SIGNATURE to determine whether you should reject or accept the request.
+
+
+		$timestamp = $this->getRequestHeader('X-ONEPASS-TIMESTAMP');
+		$signature = $this->getRequestHeader('X-ONEPASS-SIGNATURE');
+
+
+		return ($this->publisherAccount->buildHash(craft()->getSiteUrl() . 'actions/onePass/feed', $timestamp) === $signature) ? true : false;
+	}
+
+
+	/**
+	 * 1Pass Atom feed returning restricted content
+	 *
+	 * @return AtomFeed or null
+	 * @throws Exception
+	 */
 	public function actionFeed()
 	{
-		if (craft()->request->getParam('skip_auth') == 1) {
+		if (($this->checkAuthenticationHeader() == true) || (craft()->request->getParam('skip_auth') == 1 && $this->settings['apiMode'] == 'demo')) {
 			$section = craft()->sections->getSectionById($this->settings['section']);
 			$contentField = $this->settings['contentField'];
 			$paymentRequiredField = $this->settings['paymentRequiredField'];
@@ -96,9 +134,9 @@ class OnePassController extends BaseController
 			echo $this->atomFeed->xml();
 			exit();
 
-		} else {
-			return null;
-		}
+		 } else {
+		 	return null;
+		 }
 	}
 
 }
