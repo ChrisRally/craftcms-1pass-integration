@@ -1,0 +1,50 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "hash": "24a5cbcf35ba0f6bc5f812a7f2407f7c",
+    "content-hash": "729a4df4e59c69a820da275280bc226d",
+    "packages": [
+        {
+            "name": "onepass/common",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/1Pass/1pass-common",
+                "reference": "3c58010e8bb0b2d55f39c55e46dcd027d35b59dd"
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Onepass": "lib/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jake Benilov",
+                    "email": "jake@1pass.me"
+                }
+            ],
+            "description": "Helpers for building 1Pass plugins",
+            "time": "2016-02-22 13:57:54"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": {
+        "onepass/common": 20
+    },
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": []
+}

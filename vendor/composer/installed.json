@@ -1,0 +1,33 @@
+[
+    {
+        "name": "onepass/common",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/1Pass/1pass-common",
+            "reference": "3c58010e8bb0b2d55f39c55e46dcd027d35b59dd"
+        },
+        "require": {
+            "php": ">=5.4.0"
+        },
+        "time": "2016-02-22 13:57:54",
+        "type": "library",
+        "installation-source": "source",
+        "autoload": {
+            "psr-0": {
+                "Onepass": "lib/"
+            }
+        },
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Jake Benilov",
+                "email": "jake@1pass.me"
+            }
+        ],
+        "description": "Helpers for building 1Pass plugins"
+    }
+]

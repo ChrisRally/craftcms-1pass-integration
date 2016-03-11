@@ -1,0 +1,89 @@
+{% import "_includes/forms" as forms %}
+{% includeCssResource "onepass/css/cp.css" %}
+{% includeJsResource "onepass/js/cp.js" %}
+
+<h2>{{ "1Pass Integration Settings" | t }}</h2>
+
+{{ forms.textField({
+    label: "Plugin Name"|t,
+    id: 'pluginNameOverride',
+    name: 'pluginNameOverride',
+    instructions: "Intuitive, human-readable plugin name for the end user." | t,
+    value: settings.pluginNameOverride,
+    first: true,
+	errors: settings.getErrors('pluginNameOverride')
+}) }}
+
+<hr>
+
+{{ forms.textField({
+	label: "1Pass API Publishable Key" | t,
+	id: 'apiPublishableKey',
+	name: 'apiPublishableKey',
+	value: settings.apiPublishableKey,
+	errors: settings.getErrors('apiPublishableKey')
+}) }}
+
+{{ forms.textField({
+    label: "1Pass API Secret Key" | t,
+    id: 'apiSecretKey',
+    name: 'apiSecretKey',
+    value: settings.apiSecretKey,
+	errors: settings.getErrors('apiSecretKey')
+}) }}
+
+{{ forms.selectField({
+	label: "1Pass API Mode" | t,
+	id: 'apiMode',
+	name: 'apiMode',
+	options: apiModes,
+	value: settings.apiMode,
+	errors: settings.getErrors('apiMode')
+}) }}
+
+<hr>
+
+<h2>Section Mapping for Content Feed</h2>
+
+{{ forms.selectField({
+	label: 'Section' | t,
+	id: 'section',
+	name: 'section',
+	instructions: 'The section 1Pass feed should reference for entry content' | t,
+	options: sections,
+	value: settings.section,
+	errors: settings.getErrors('section')
+}) }}
+
+<div class="onepass-settings-section-fields">
+	{{ forms.selectField({
+		label: 'Content Field' | t,
+		id: 'contentField',
+		name: 'contentField',
+		options: options,
+		value: settings.contentField,
+		instructions: 'The entry content field to be delivered on purchase' | t,
+		errors: settings.getErrors('contentField')
+	}) }}
+
+	{{ forms.selectField({
+		label: 'Payment Required Field' | t,
+		id: 'paymentRequiredField',
+		name: 'paymentRequiredField',
+		options: options,
+		value: settings.paymentRequiredField,
+		instructions: 'The entry lightswitch field related to payment required' | t,
+		errors: settings.getErrors('paymentRequiredField')
+	}) }}
+</div>
+
+<script>
+	/**
+	 * 1Pass settings singleton
+	 * @type Object
+	 */
+	var OnePassSettings = {
+		sections: {{ sections | json_encode() | raw }},
+		values: {{ settings.Attributes | json_encode() | raw }}
+	};
+</script>

@@ -1,0 +1,21 @@
+{
+    "name": "onepass/common",
+    "description": "Helpers for building 1Pass plugins",
+    "type": "library",
+    "version": "0.1",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jake Benilov",
+            "email": "jake@1pass.me"
+        }
+    ],
+    "autoload": {
+        "psr-0": {
+            "Onepass": "lib/"
+        }
+    },
+    "require": {
+        "php": ">=5.4.0"
+    }
+}
