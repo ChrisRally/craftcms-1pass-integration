@@ -32,10 +32,11 @@ With your entry template place the following (as an example).
 1. *entry.paymentRequired* refers to the lightswitch field setup to indicate entries requiring payment, used as an example.
 2. *strap*, *body* and *entry.body* refers to the entry's content fields, used as an example.
 
+```
+{% if entry.paymentRequired %}
+	{{ craft.onePass.getHTMLEmbedCode(entry, 'strap', 'body', 250) | raw }}
 
-    {% if entry.paymentRequired %}
-	    {{ craft.onePass.getHTMLEmbedCode(entry, 'strap', 'body', 250) | raw }}
-
-    {% else  %}
-	    {{ entry.body }}
-    {% endif %}
+{% else  %}
+	{{ entry.body }}
+{% endif %}
+```
