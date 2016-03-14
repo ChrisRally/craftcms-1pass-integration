@@ -54,7 +54,7 @@ class OnePassService extends BaseApplicationComponent
 
 		$article = new Article([
 			'url' => $entry->url,
-			'unique_id' => craft()->getSiteUid() . ':' . $entry->slug . ':' . $entry->id,
+			'unique_id' => craft()->getSiteUrl() . craft()->getSiteUid() . ':' . $entry->slug . ':' . $entry->id,
 			'title' => $entry->title,
 			'author' => craft()->getSiteName(),
 			'description' => strip_tags($entry->$summaryField),
