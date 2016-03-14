@@ -94,16 +94,6 @@ class OnePassController extends BaseController
 			$latestEntry = $criteria->first();
 
 
-			$this->atomFeed = new AtomFeed([
-				'publication_url' => craft()->getSiteUrl(),
-				'publication_title' => craft()->getSiteName(),
-				'updated_timestamp' => $latestEntry->dateUpdated->rfc3339(),
-				'feed_id' => craft()->getSiteUrl() . 'actions/onePass/feed',
-				'feed_full_url' => craft()->getSiteUrl() . 'actions/onePass/feed',
-				'pagination_options' => null
-			]);
-
-
 			// Get a list of all entries from the section chosen in the plugin settings
 			$criteria = craft()->elements->getCriteria(ElementType::Entry);
 			$criteria->section = $section->handle;
@@ -111,13 +101,55 @@ class OnePassController extends BaseController
 			$criteria->limit = null;
 
 
-			$entries = $criteria->find();
+			$allEntries = $criteria->find();
 
 
-			foreach ($entries as $entry) {
+			$entriesLimitPerPage = 10;
+			$currentPage = (craft()->request->getParam('page')) ? craft()->request->getParam('page') : 1;
+			$lastPage = ceil(count($allEntries) / $entriesLimitPerPage);
+
+
+			$paginationOptions = [
+				'first_page_href' => craft()->getSiteUrl() . 'actions/onePass/feed/?page=1',
+				'last_page_href' => craft()->getSiteUrl() . 'actions/onePass/feed/?page=' . $lastPage
+			];
+
+
+			if ($currentPage != 1) {
+				$paginationOptions['previous_page_href'] = craft()->getSiteUrl() . 'actions/onePass/feed/?page=' . ($currentPage - 1);
+			}
+
+
+			if ($currentPage + 1 < $lastPage) {
+				$paginationOptions['next_page_href'] = craft()->getSiteUrl() . 'actions/onePass/feed/?paged=' . ($currentPage + 1);
+			}
+
+
+			// Get paginated entries from the section chosen in the plugin settings
+			$criteria = craft()->elements->getCriteria(ElementType::Entry);
+			$criteria->section = $section->handle;
+			$criteria->$paymentRequiredField = true;
+			$criteria->limit = $entriesLimitPerPage;
+			$criteria->offset = $entriesLimitPerPage * ($currentPage - 1);
+
+
+			$paginatedEntries = $criteria->find();
+
+
+			$this->atomFeed = new AtomFeed([
+				'publication_url' => craft()->getSiteUrl(),
+				'publication_title' => craft()->getSiteName(),
+				'updated_timestamp' => $latestEntry->dateUpdated->rfc3339(),
+				'feed_id' => craft()->getSiteUrl() . 'actions/onePass/feed',
+				'feed_full_url' => craft()->getSiteUrl() . 'actions/onePass/feed',
+				'pagination_options' => $paginationOptions,
+			]);
+
+
+			foreach ($paginatedEntries as $entry) {
 				$article = new Article([
 					'url' => $entry->url,
-					'unique_id' => craft()->getSiteUid() . ':' . $entry->slug . ':' . $entry->id,
+					'unique_id' => craft()->getSiteUrl() . craft()->getSiteUid() . ':' . $entry->slug . ':' . $entry->id,
 					'title' => $entry->title,
 					'author' => craft()->getSiteName(),
 					'description' => substr(strip_tags($entry->$contentField), 0, 250),
