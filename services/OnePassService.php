@@ -52,6 +52,9 @@ class OnePassService extends BaseApplicationComponent
 		$embed = new HtmlEmbed($this->publisherAccount);
 
 
+		$charLimit = (is_numeric($charLimit)) ? $charLimit : 200;
+
+
 		$article = new Article([
 			'url' => $entry->url,
 			'unique_id' => craft()->getSiteUrl() . craft()->getSiteUid() . ':' . $entry->slug . ':' . $entry->id,

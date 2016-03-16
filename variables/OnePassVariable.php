@@ -16,7 +16,7 @@ class OnePassVariable
 	 * @param string $action
 	 * @param string $type
 	 */
-	public function getHTMLEmbedCode(EntryModel $entry, $summaryField = 'strap', $contentField = 'body', $charLimit = 250)
+	public function getHTMLEmbedCode(EntryModel $entry, $summaryField = 'strap', $contentField = 'body', $charLimit = 200)
 	{
 		return craft()->onePass->getHTMLEmbedCode($entry, $summaryField, $contentField, $charLimit);
 	}
