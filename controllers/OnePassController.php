@@ -120,8 +120,8 @@ class OnePassController extends BaseController
 			}
 
 
-			if ($currentPage + 1 < $lastPage) {
-				$paginationOptions['next_page_href'] = craft()->getSiteUrl() . 'actions/onePass/feed/?paged=' . ($currentPage + 1);
+			if ($currentPage + 1 <= $lastPage) {
+				$paginationOptions['next_page_href'] = craft()->getSiteUrl() . 'actions/onePass/feed/?page=' . ($currentPage + 1);
 			}
 
 
