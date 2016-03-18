@@ -167,7 +167,7 @@ class OnePassController extends BaseController
 			exit();
 
 		 } else {
-		 	return null;
+			throw new HttpException(401, "Unauthorised");
 		 }
 	}
 
