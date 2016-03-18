@@ -92,6 +92,10 @@ class OnePassController extends BaseController
 
 
 			$latestEntry = $criteria->first();
+			if( !$latestEntry ) {
+				// Return null (404) if nothing was found, because the feed will be empty
+				return null;
+			}
 
 
 			// Get a list of all entries from the section chosen in the plugin settings
