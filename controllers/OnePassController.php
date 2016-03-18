@@ -61,8 +61,8 @@ class OnePassController extends BaseController
 		// Pass the current URL and the timestamp into the buildHash method of 1pass-client and compare with X-ONEPASS-SIGNATURE to determine whether you should reject or accept the request.
 
 
-		$timestamp = $this->getRequestHeader('X-ONEPASS-TIMESTAMP');
-		$signature = $this->getRequestHeader('X-ONEPASS-SIGNATURE');
+		$timestamp = $this->getRequestHeader('HTTP_X_1PASS_TIMESTAMP');
+		$signature = $this->getRequestHeader('HTTP_X_1PASS_SIGNATURE');
 
 
 		return ($this->publisherAccount->buildHash(craft()->getSiteUrl() . 'actions/onePass/feed', $timestamp) === $signature) ? true : false;
