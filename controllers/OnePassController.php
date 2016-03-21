@@ -135,6 +135,7 @@ class OnePassController extends BaseController
 			$criteria->$paymentRequiredField = true;
 			$criteria->limit = $entriesLimitPerPage;
 			$criteria->offset = $entriesLimitPerPage * ($currentPage - 1);
+			$criteria->order = 'dateUpdated DESC';
 
 
 			$paginatedEntries = $criteria->find();
