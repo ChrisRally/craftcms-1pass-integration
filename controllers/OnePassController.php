@@ -160,7 +160,8 @@ class OnePassController extends BaseController
 					'description' => substr(strip_tags($entry->$contentField), 0, 250),
 					'published' => $entry->postDate->rfc3339(),
 					'last_modified' => $entry->dateUpdated->rfc3339(),
-					'content' => $entry->$contentField
+					'content' => $entry->$contentField,
+					'category' => $this->getContentTypeForEntry($entry)
 				]);
 
 
@@ -174,6 +175,20 @@ class OnePassController extends BaseController
 		 } else {
 			throw new HttpException(401, "Unauthorised");
 		 }
+	}
+
+	/**
+	 * Get the content type of an entry
+	 * This is in its own method as the implementation might change in future.
+	 *
+	 * @return string
+	 */
+	private function getContentTypeForEntry( $entry ) {
+		if( isset( $entry->articleType ) ) {
+			return $entry->articleType;
+		} else {
+			return null;
+		}
 	}
 
 }
