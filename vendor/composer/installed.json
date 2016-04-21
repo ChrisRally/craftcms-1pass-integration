@@ -6,12 +6,12 @@
         "source": {
             "type": "git",
             "url": "https://github.com/1Pass/1pass-common",
-            "reference": "3c58010e8bb0b2d55f39c55e46dcd027d35b59dd"
+            "reference": "212142056aa5c2c8402124e5b1822497b221ec22"
         },
         "require": {
             "php": ">=5.4.0"
         },
-        "time": "2016-02-22 13:57:54",
+        "time": "2016-04-19 21:26:00",
         "type": "library",
         "installation-source": "source",
         "autoload": {

@@ -7,7 +7,7 @@ use PHPUnit_Framework_TestCase;
 class AtomFeedTest extends PHPUnit_Framework_TestCase {
     private $expectedAtomFeed = <<<STR
 <?xml version="1.0" encoding="UTF-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom" xmlns:thr="http://purl.org/syndication/thread/1.0" xml:lang="en-US" xml:base="http://www.example.com">
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en-US" xml:base="http://www.example.com">
   <title type="text">The Example</title>
   <updated>2016-02-14T16:53:57Z</updated>
   <id>http://example.org/feed/atom/1pass/</id>
@@ -20,6 +20,7 @@ class AtomFeedTest extends PHPUnit_Framework_TestCase {
     <author>
       <name>Bill Shakespeare</name>
     </author>
+    <category term="feature-article"/>
     <title type="html"><![CDATA[To be or not to be]]></title>
     <link rel="alternate" type="text/html" href="http://www.example.com/to-be-or-not-to-be"/>
     <id>http://www.example.com/articles/12345</id>
@@ -57,6 +58,7 @@ STR;
 			'author' => "Bill Shakespeare",
 			'description' => "Lorem ipsum dolor sit amet, ex vis error consetetur. Vix ea possim molestie liberavisse, etiam ubique doming his ex, mei altera prodesset eu",
 			'unique_id' => 'http://www.example.com/articles/12345',
+			'category' => 'feature-article',
 			'published' => '2016-02-14T15:53:57Z',
 			'last_modified' => '2016-02-14T16:53:57Z',
 			'content' => 'Ei eam everti sensibus laboramus, civibus molestiae philosophia eu vel, duo at esse instructior. Per graece consequuntur ei. Tota posse erroribus est ex, id docendi offendit pro. Eos id eius splendide, has vide cetero eloquentiam ei.',
