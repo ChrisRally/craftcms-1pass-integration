@@ -58,7 +58,6 @@ class AtomFeed {
 		$feed->startElement('feed');
 
 		$feed->writeAttribute('xmlns', "http://www.w3.org/2005/Atom");
-		$feed->writeAttribute('xmlns:thr', "http://purl.org/syndication/thread/1.0");
 		$feed->writeAttribute('xml:lang', $this->language);
 		$feed->writeAttribute('xml:base', $this->publication_url);
 
@@ -100,6 +99,12 @@ class AtomFeed {
 		if ( !empty($author_name) ) {
 			$feed->startElement('author');
 			$feed->writeElement('name', $author_name);
+			$feed->endElement();
+		}
+
+		if ( !empty($article->category) ) {
+			$feed->startElement('category');
+			$feed->writeAttribute('term', $article->category);
 			$feed->endElement();
 		}
 

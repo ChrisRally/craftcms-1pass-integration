@@ -25,6 +25,7 @@ class Article {
 		$this->published		= $attrs['published'];
 		$this->last_modified	= $attrs['last_modified'];
 		$this->content			= isset( $attrs['content'] ) ? $attrs['content'] : null;
+		$this->category			= isset( $attrs['category'] ) ? $attrs['category'] : null;
 	}
 
 }
